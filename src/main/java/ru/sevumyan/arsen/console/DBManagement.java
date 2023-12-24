@@ -6,20 +6,22 @@ public class DBManagement {
     private static final String URL = "jdbc:postgresql://localhost/postgres";
     private static final String USERNAME = "postgres";
     private static final String PASSWORD = "postgres";
-    private static final String Employee = "Select * from employee";
-    private static final String Department = "Select * from department";
-    private static final String Working_Hours = "select * from working_hours";
-    private static final String Absence = "Select * from absence";
-    private static final String Post = "Select * from post";
-    private static final String Paid_Salary = "Select * from paid_salary";
+    private static final String EMPLOYEE = "Select * from employee";
+    private static final String DEPARTMENT = "Select * from department";
+    private static final String WORKING_HOURS = "select * from working_hours";
+    private static final String ABSENCE = "Select * from absence";
+    private static final String POST = "Select * from post";
+    private static final String PAID_SALARY = "Select * from paid_salary";
     private static final String ANSI_RESET = "\u001B[0m";
     private static final String ANSI_BLUE = "\u001B[34m";
 
    private Connection conn;
+   private Statement stmt;
 
     {
         try {
             conn = DriverManager.getConnection(URL, USERNAME, PASSWORD);
+            stmt = conn.createStatement();
         } catch (SQLException e) {
             throw new RuntimeException(e);
         }
@@ -27,7 +29,7 @@ public class DBManagement {
 
 
     public void displayEmployees() throws SQLException {
-        try (Statement stmt = conn.createStatement(); ResultSet rs = stmt.executeQuery(Employee)) {
+        try (ResultSet rs = stmt.executeQuery(EMPLOYEE)) {
             while (rs.next()) {
                 System.out.print("First Name: " + rs.getString("first_name") + "\t");
                 System.out.print(ANSI_BLUE + " Last Name: " + rs.getString("last_name") + "\t");
@@ -42,7 +44,7 @@ public class DBManagement {
     }
 
     public void displayPost() throws SQLException {
-        try (Statement stmt = conn.createStatement(); ResultSet rs = stmt.executeQuery(Post)) {
+        try (ResultSet rs = stmt.executeQuery(POST)) {
             while (rs.next()) {
 
                 System.out.print("Post name: " + rs.getString("post_name") + "\t");
@@ -53,7 +55,7 @@ public class DBManagement {
 
     public  void displayDepartment() throws SQLException {
 
-        try (Statement stmt = conn.createStatement(); ResultSet rs = stmt.executeQuery(Department)) {
+        try (ResultSet rs = stmt.executeQuery(DEPARTMENT)) {
 
             while (rs.next()) {
                 System.out.print("Department Location: " + rs.getString("department_location") + "\t\n");
@@ -63,7 +65,7 @@ public class DBManagement {
 
     public void displayWorkingHours() throws SQLException {
 
-        try (Statement stmt = conn.createStatement(); ResultSet rs = stmt.executeQuery(Working_Hours)) {
+        try (ResultSet rs = stmt.executeQuery(WORKING_HOURS)) {
 
             while (rs.next()) {
                 System.out.print("Employee ID: " + rs.getString("employee_id") + "\t");
@@ -73,7 +75,7 @@ public class DBManagement {
     }
 
     public void displayPaidSalary() throws SQLException {
-        try (Statement stmt = conn.createStatement(); ResultSet rs = stmt.executeQuery(Paid_Salary)) {
+        try (ResultSet rs = stmt.executeQuery(PAID_SALARY)) {
             while (rs.next()) {
                 System.out.print("Employee ID: " + rs.getString("employee_id") + "\t");
                 System.out.println(ANSI_BLUE + "Payment date: " + rs.getDate("payment_date") + "\t\n" + ANSI_RESET);
@@ -84,7 +86,7 @@ public class DBManagement {
 
     public void displayAbsence() throws SQLException {
 
-        try (Statement stmt = conn.createStatement(); ResultSet rs = stmt.executeQuery(Absence)) {
+        try (ResultSet rs = stmt.executeQuery(ABSENCE)) {
             while (rs.next()) {
                 System.out.print("Employee ID: " + rs.getString("employee_id") + "\t");
                 System.out.println(ANSI_BLUE + "Absence date: " + rs.getDate("absence_date") + "\t\n" + ANSI_RESET);
