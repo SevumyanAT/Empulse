@@ -6,16 +6,13 @@ import java.util.Scanner;
 
 public class ConsoleProgram {
     public static void main(String[] args) throws SQLException {
-        DBManagement dbManagement = new DBManagement();
-        try (Scanner sc = new Scanner(System.in)) {
+        try (DBManagement dbManagement = new DBManagement(); Scanner sc = new Scanner(System.in)) {
             boolean stop = false;
 
             do {
                 dbManagement.displayAvailableCommands();
-
                 String value = sc.next();
                 int command = -1;
-
 
                 try {
                     command = Integer.parseInt(value);

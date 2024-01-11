@@ -2,7 +2,7 @@ package ru.sevumyan.arsen.console;
 
 import java.sql.*;
 
-public class DBManagement {
+public class DBManagement implements AutoCloseable {
     private static final String URL = "jdbc:postgresql://localhost/postgres";
     private static final String USERNAME = "postgres";
     private static final String PASSWORD = "postgres";
@@ -15,21 +15,20 @@ public class DBManagement {
     private static final String ANSI_RESET = "\u001B[0m";
     private static final String ANSI_BLUE = "\u001B[34m";
 
-   private Connection conn;
-   private Statement stmt;
+    private final Connection connection;
+    private final Statement statement;
 
-    {
+    public DBManagement() {
         try {
-            conn = DriverManager.getConnection(URL, USERNAME, PASSWORD);
-            stmt = conn.createStatement();
+            connection = DriverManager.getConnection(URL, USERNAME, PASSWORD);
+            statement = connection.createStatement();
         } catch (SQLException e) {
             throw new RuntimeException(e);
         }
     }
 
-
     public void displayEmployees() throws SQLException {
-        try (ResultSet rs = stmt.executeQuery(EMPLOYEE)) {
+        try (ResultSet rs = statement.executeQuery(EMPLOYEE)) {
             while (rs.next()) {
                 System.out.print("First Name: " + rs.getString("first_name") + "\t");
                 System.out.print(ANSI_BLUE + " Last Name: " + rs.getString("last_name") + "\t");
@@ -44,7 +43,7 @@ public class DBManagement {
     }
 
     public void displayPost() throws SQLException {
-        try (ResultSet rs = stmt.executeQuery(POST)) {
+        try (ResultSet rs = statement.executeQuery(POST)) {
             while (rs.next()) {
 
                 System.out.print("Post name: " + rs.getString("post_name") + "\t");
@@ -53,9 +52,9 @@ public class DBManagement {
         }
     }
 
-    public  void displayDepartment() throws SQLException {
+    public void displayDepartment() throws SQLException {
 
-        try (ResultSet rs = stmt.executeQuery(DEPARTMENT)) {
+        try (ResultSet rs = statement.executeQuery(DEPARTMENT)) {
 
             while (rs.next()) {
                 System.out.print("Department Location: " + rs.getString("department_location") + "\t\n");
@@ -65,7 +64,7 @@ public class DBManagement {
 
     public void displayWorkingHours() throws SQLException {
 
-        try (ResultSet rs = stmt.executeQuery(WORKING_HOURS)) {
+        try (ResultSet rs = statement.executeQuery(WORKING_HOURS)) {
 
             while (rs.next()) {
                 System.out.print("Employee ID: " + rs.getString("employee_id") + "\t");
@@ -75,7 +74,7 @@ public class DBManagement {
     }
 
     public void displayPaidSalary() throws SQLException {
-        try (ResultSet rs = stmt.executeQuery(PAID_SALARY)) {
+        try (ResultSet rs = statement.executeQuery(PAID_SALARY)) {
             while (rs.next()) {
                 System.out.print("Employee ID: " + rs.getString("employee_id") + "\t");
                 System.out.println(ANSI_BLUE + "Payment date: " + rs.getDate("payment_date") + "\t\n" + ANSI_RESET);
@@ -86,7 +85,7 @@ public class DBManagement {
 
     public void displayAbsence() throws SQLException {
 
-        try (ResultSet rs = stmt.executeQuery(ABSENCE)) {
+        try (ResultSet rs = statement.executeQuery(ABSENCE)) {
             while (rs.next()) {
                 System.out.print("Employee ID: " + rs.getString("employee_id") + "\t");
                 System.out.println(ANSI_BLUE + "Absence date: " + rs.getDate("absence_date") + "\t\n" + ANSI_RESET);
@@ -96,7 +95,7 @@ public class DBManagement {
         }
     }
 
-    public void displayAvailableCommands(){
+    public void displayAvailableCommands() {
         System.out.println("The console program started working!\n" +
                 "Available commands:\n" +
                 ANSI_BLUE + "0" + ANSI_RESET + "- shutting down the application\n" +
@@ -107,5 +106,10 @@ public class DBManagement {
                 ANSI_BLUE + "5" + ANSI_RESET + "- output the values of the paid salary table\n" +
                 ANSI_BLUE + "6" + ANSI_RESET + "- output the values of the absence table\n");
         System.out.print("Enter the command: ");
+    }
+
+    public void close() throws SQLException {
+        connection.close();
+        statement.close();
     }
 }
