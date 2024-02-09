@@ -1,11 +1,14 @@
 package ru.sevumyan.arsen.console;
 
+import com.fasterxml.jackson.core.JsonProcessingException;
+import ru.sevumyan.arsen.entity.Employee;
+
+import java.io.IOException;
 import java.sql.*;
-import java.util.Properties;
 import java.util.Scanner;
 
 public class ConsoleProgram {
-    public static void main(String[] args) throws SQLException {
+    public static void main(String[] args) throws SQLException, IOException {
         try (DBManagement dbManagement = new DBManagement(); Scanner sc = new Scanner(System.in)) {
             boolean stop = false;
 
@@ -13,7 +16,6 @@ public class ConsoleProgram {
                 dbManagement.displayAvailableCommands();
                 String value = sc.next();
                 int command = -1;
-
                 try {
                     command = Integer.parseInt(value);
                 } catch (NumberFormatException e) {
@@ -28,8 +30,12 @@ public class ConsoleProgram {
                     case 4 -> dbManagement.displayWorkingHours();
                     case 5 -> dbManagement.displayPaidSalary();
                     case 6 -> dbManagement.displayAbsence();
+                    case 7 -> {
+                        EmployeeInput employeeInput = new EmployeeInput();
+                        Employee employee = employeeInput.employeeRead(sc);
+                        dbManagement.employeeInput(employee);
+                    }
                 }
-
             } while (!stop);
         }
     }

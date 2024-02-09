@@ -1,5 +1,13 @@
 package ru.sevumyan.arsen.console;
 
+import com.fasterxml.jackson.annotation.JsonAutoDetect;
+import com.fasterxml.jackson.annotation.PropertyAccessor;
+import com.fasterxml.jackson.core.JsonProcessingException;
+import com.fasterxml.jackson.databind.AnnotationIntrospector;
+import com.fasterxml.jackson.databind.ObjectMapper;
+import com.google.gson.Gson;
+import ru.sevumyan.arsen.entity.Employee;
+
 import java.sql.*;
 
 public class DBManagement implements AutoCloseable {
@@ -53,9 +61,7 @@ public class DBManagement implements AutoCloseable {
     }
 
     public void displayDepartment() throws SQLException {
-
         try (ResultSet rs = statement.executeQuery(DEPARTMENT)) {
-
             while (rs.next()) {
                 System.out.print("Department Location: " + rs.getString("department_location") + "\t\n");
             }
@@ -63,9 +69,7 @@ public class DBManagement implements AutoCloseable {
     }
 
     public void displayWorkingHours() throws SQLException {
-
         try (ResultSet rs = statement.executeQuery(WORKING_HOURS)) {
-
             while (rs.next()) {
                 System.out.print("Employee ID: " + rs.getString("employee_id") + "\t");
                 System.out.println(ANSI_BLUE + "Working hours: " + rs.getInt("working_hours") + "\t\n" + ANSI_RESET);
@@ -84,7 +88,6 @@ public class DBManagement implements AutoCloseable {
     }
 
     public void displayAbsence() throws SQLException {
-
         try (ResultSet rs = statement.executeQuery(ABSENCE)) {
             while (rs.next()) {
                 System.out.print("Employee ID: " + rs.getString("employee_id") + "\t");
@@ -104,10 +107,32 @@ public class DBManagement implements AutoCloseable {
                 ANSI_BLUE + "3" + ANSI_RESET + "- output the values of the department table\n" +
                 ANSI_BLUE + "4" + ANSI_RESET + "- output the values of the working hours table\n" +
                 ANSI_BLUE + "5" + ANSI_RESET + "- output the values of the paid salary table\n" +
-                ANSI_BLUE + "6" + ANSI_RESET + "- output the values of the absence table\n");
+                ANSI_BLUE + "6" + ANSI_RESET + "- output the values of the absence table\n" +
+                ANSI_BLUE + "7" + ANSI_RESET + "-add employee values to table\n");
         System.out.print("Enter the command: ");
     }
 
+    public void employeeInput(Employee employee) throws SQLException {
+        String sql = "insert into employee " +
+                "(first_name, last_name, passport_no, university_education, " +
+                "birth_date, bank_account, post_id, department_id)" +
+                "values ( ?,?,?,?,?,?,?,?)";
+
+        try (PreparedStatement preparedStatement = connection.prepareStatement(sql)){
+            preparedStatement.setString(1, employee.getFirstName());
+            preparedStatement.setString(2,employee.getLastName());
+            preparedStatement.setInt(3, employee.getPassportNumber());
+            preparedStatement.setString(4,employee.getUniversityEducation());
+            preparedStatement.setDate(5, employee.getBirthDate());
+            preparedStatement.setInt(6, employee.getBankAccount());
+            preparedStatement.setInt(7,employee.getPostId());
+            preparedStatement.setInt(8,employee.getDepartmentId());
+            preparedStatement.executeUpdate();
+        }
+
+    }
+
+    @Override
     public void close() throws SQLException {
         connection.close();
         statement.close();
