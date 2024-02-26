@@ -114,15 +114,14 @@ public class DBManagement implements AutoCloseable {
         try (PreparedStatement preparedStatement = connection.prepareStatement(sql)){
             preparedStatement.setString(1, employee.getFirstName());
             preparedStatement.setString(2,employee.getLastName());
-            preparedStatement.setInt(3, employee.getPassportNumber());
+            preparedStatement.setInt(3, Integer.parseInt(employee.getPassportNumber()));
             preparedStatement.setString(4,employee.getUniversityEducation());
-            preparedStatement.setDate(5, employee.getBirthDate());
-            preparedStatement.setInt(6, employee.getBankAccount());
-            preparedStatement.setInt(7,employee.getPostId());
-            preparedStatement.setInt(8,employee.getDepartmentId());
+            preparedStatement.setDate(5, Date.valueOf(employee.getBirthDate()));
+            preparedStatement.setInt(6, Integer.parseInt(employee.getBankAccount()));
+            preparedStatement.setInt(7, Integer.parseInt(employee.getPostId()));
+            preparedStatement.setInt(8, Integer.parseInt(employee.getDepartmentId()));
             preparedStatement.executeUpdate();
         }
-
     }
 
     @Override

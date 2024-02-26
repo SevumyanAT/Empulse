@@ -10,25 +10,27 @@ import java.util.Objects;
 import java.util.Scanner;
 
 public class EmployeeInput {
+    private final ObjectMapper OBJECTMAPPER = new ObjectMapper();
 
-    public EmployeeInput() {
+    private static EmployeeInput instance;
 
+    private EmployeeInput(){}
+
+    public static EmployeeInput getInstance(){
+        if(instance == null) {
+            instance = new EmployeeInput();
+        }
+        return instance;
     }
 
     public Employee employeeRead(Scanner scanner) throws JsonProcessingException {
-        ObjectMapper objectMapper = new ObjectMapper();
-        objectMapper.setVisibility(PropertyAccessor.FIELD, JsonAutoDetect.Visibility.ANY);
-        String jsonemployee = null;
-        Employee employee;
-        boolean stop = false;
+        OBJECTMAPPER.setVisibility(PropertyAccessor.FIELD, JsonAutoDetect.Visibility.ANY);
 
         System.out.println("Enter the employee's data in JSON format");
         scanner.nextLine();
-        jsonemployee = scanner.nextLine();
-
-        employee = objectMapper.readValue(jsonemployee, Employee.class);
+        String EmployeeJson = scanner.nextLine();
+        Employee employee = OBJECTMAPPER.readValue(EmployeeJson, Employee.class);
 
         return employee;
     }
-
 }
