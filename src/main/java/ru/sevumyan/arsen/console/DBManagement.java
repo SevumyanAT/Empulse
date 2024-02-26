@@ -1,13 +1,6 @@
 package ru.sevumyan.arsen.console;
 
-import com.fasterxml.jackson.annotation.JsonAutoDetect;
-import com.fasterxml.jackson.annotation.PropertyAccessor;
-import com.fasterxml.jackson.core.JsonProcessingException;
-import com.fasterxml.jackson.databind.AnnotationIntrospector;
-import com.fasterxml.jackson.databind.ObjectMapper;
-import com.google.gson.Gson;
 import ru.sevumyan.arsen.entity.Employee;
-
 import java.sql.*;
 
 public class DBManagement implements AutoCloseable {
