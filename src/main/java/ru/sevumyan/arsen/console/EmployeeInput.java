@@ -6,11 +6,10 @@ import com.fasterxml.jackson.core.JsonProcessingException;
 import com.fasterxml.jackson.databind.ObjectMapper;
 import ru.sevumyan.arsen.entity.Employee;
 
-import java.util.Objects;
 import java.util.Scanner;
 
 public class EmployeeInput {
-    private final ObjectMapper OBJECTMAPPER = new ObjectMapper();
+    private final ObjectMapper objectMapper = new ObjectMapper();
 
     private static EmployeeInput instance;
 
@@ -24,12 +23,12 @@ public class EmployeeInput {
     }
 
     public Employee employeeRead(Scanner scanner) throws JsonProcessingException {
-        OBJECTMAPPER.setVisibility(PropertyAccessor.FIELD, JsonAutoDetect.Visibility.ANY);
+        objectMapper.setVisibility(PropertyAccessor.FIELD, JsonAutoDetect.Visibility.ANY);
 
         System.out.println("Enter the employee's data in JSON format");
         scanner.nextLine();
         String EmployeeJson = scanner.nextLine();
-        Employee employee = OBJECTMAPPER.readValue(EmployeeJson, Employee.class);
+        Employee employee = objectMapper.readValue(EmployeeJson, Employee.class);
 
         return employee;
     }
