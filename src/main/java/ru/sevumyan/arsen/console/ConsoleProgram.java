@@ -1,6 +1,5 @@
 package ru.sevumyan.arsen.console;
 
-import com.fasterxml.jackson.core.JsonProcessingException;
 import ru.sevumyan.arsen.entity.Employee;
 
 import java.io.IOException;
