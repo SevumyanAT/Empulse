@@ -1,12 +1,13 @@
 package ru.sevumyan.arsen.console;
 
+import lombok.RequiredArgsConstructor;
+import org.springframework.stereotype.Component;
 import ru.sevumyan.arsen.entity.Employee;
 import java.sql.*;
 
-public class DBManagement implements AutoCloseable {
-    private static final String URL = "jdbc:postgresql://localhost/postgres";
-    private static final String USERNAME = "postgres";
-    private static final String PASSWORD = "postgres";
+@Component
+@RequiredArgsConstructor
+public class DBManagement {
     private static final String EMPLOYEE = "Select * from employee";
     private static final String DEPARTMENT = "Select * from department";
     private static final String WORKING_HOURS = "select * from working_hours";
@@ -16,20 +17,10 @@ public class DBManagement implements AutoCloseable {
     private static final String ANSI_RESET = "\u001B[0m";
     private static final String ANSI_BLUE = "\u001B[34m";
 
-    private final Connection connection;
-    private final Statement statement;
-
-    public DBManagement() {
-        try {
-            connection = DriverManager.getConnection(URL, USERNAME, PASSWORD);
-            statement = connection.createStatement();
-        } catch (SQLException e) {
-            throw new RuntimeException(e);
-        }
-    }
+    private final ConnectionManager connectionManager;
 
     public void displayEmployees() throws SQLException {
-        try (ResultSet rs = statement.executeQuery(EMPLOYEE)) {
+        try (ResultSet rs = getStatement().executeQuery(EMPLOYEE)) {
             while (rs.next()) {
                 System.out.print("First Name: " + rs.getString("first_name") + "\t");
                 System.out.print(ANSI_BLUE + " Last Name: " + rs.getString("last_name") + "\t");
@@ -44,7 +35,7 @@ public class DBManagement implements AutoCloseable {
     }
 
     public void displayPost() throws SQLException {
-        try (ResultSet rs = statement.executeQuery(POST)) {
+        try (ResultSet rs = getStatement().executeQuery(POST)) {
             while (rs.next()) {
 
                 System.out.print("Post name: " + rs.getString("post_name") + "\t");
@@ -54,7 +45,7 @@ public class DBManagement implements AutoCloseable {
     }
 
     public void displayDepartment() throws SQLException {
-        try (ResultSet rs = statement.executeQuery(DEPARTMENT)) {
+        try (ResultSet rs = getStatement().executeQuery(DEPARTMENT)) {
             while (rs.next()) {
                 System.out.print("Department Location: " + rs.getString("department_location") + "\t\n");
             }
@@ -62,7 +53,7 @@ public class DBManagement implements AutoCloseable {
     }
 
     public void displayWorkingHours() throws SQLException {
-        try (ResultSet rs = statement.executeQuery(WORKING_HOURS)) {
+        try (ResultSet rs = getStatement().executeQuery(WORKING_HOURS)) {
             while (rs.next()) {
                 System.out.print("Employee ID: " + rs.getString("employee_id") + "\t");
                 System.out.println(ANSI_BLUE + "Working hours: " + rs.getInt("working_hours") + "\t\n" + ANSI_RESET);
@@ -71,7 +62,7 @@ public class DBManagement implements AutoCloseable {
     }
 
     public void displayPaidSalary() throws SQLException {
-        try (ResultSet rs = statement.executeQuery(PAID_SALARY)) {
+        try (ResultSet rs = getStatement().executeQuery(PAID_SALARY)) {
             while (rs.next()) {
                 System.out.print("Employee ID: " + rs.getString("employee_id") + "\t");
                 System.out.println(ANSI_BLUE + "Payment date: " + rs.getDate("payment_date") + "\t\n" + ANSI_RESET);
@@ -81,7 +72,7 @@ public class DBManagement implements AutoCloseable {
     }
 
     public void displayAbsence() throws SQLException {
-        try (ResultSet rs = statement.executeQuery(ABSENCE)) {
+        try (ResultSet rs = getStatement().executeQuery(ABSENCE)) {
             while (rs.next()) {
                 System.out.print("Employee ID: " + rs.getString("employee_id") + "\t");
                 System.out.println(ANSI_BLUE + "Absence date: " + rs.getDate("absence_date") + "\t\n" + ANSI_RESET);
@@ -111,11 +102,11 @@ public class DBManagement implements AutoCloseable {
                 "birth_date, bank_account, post_id, department_id)" +
                 "values ( ?,?,?,?,?,?,?,?)";
 
-        try (PreparedStatement preparedStatement = connection.prepareStatement(sql)){
+        try (PreparedStatement preparedStatement = getConnection().prepareStatement(sql)) {
             preparedStatement.setString(1, employee.getFirstName());
-            preparedStatement.setString(2,employee.getLastName());
+            preparedStatement.setString(2, employee.getLastName());
             preparedStatement.setInt(3, Integer.parseInt(employee.getPassportNumber()));
-            preparedStatement.setString(4,employee.getUniversityEducation());
+            preparedStatement.setString(4, employee.getUniversityEducation());
             preparedStatement.setDate(5, Date.valueOf(employee.getBirthDate()));
             preparedStatement.setInt(6, Integer.parseInt(employee.getBankAccount()));
             preparedStatement.setInt(7, Integer.parseInt(employee.getPostId()));
@@ -124,9 +115,11 @@ public class DBManagement implements AutoCloseable {
         }
     }
 
-    @Override
-    public void close() throws SQLException {
-        connection.close();
-        statement.close();
+    private Statement getStatement() {
+        return connectionManager.getStatement();
+    }
+
+    private Connection getConnection() {
+        return connectionManager.getConnection();
     }
 }

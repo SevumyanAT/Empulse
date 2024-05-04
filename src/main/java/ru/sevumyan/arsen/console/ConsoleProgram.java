@@ -1,14 +1,23 @@
 package ru.sevumyan.arsen.console;
 
+import lombok.AllArgsConstructor;
+import lombok.NonNull;
+import lombok.RequiredArgsConstructor;
+import org.springframework.stereotype.Component;
 import ru.sevumyan.arsen.entity.Employee;
 
 import java.io.IOException;
-import java.sql.*;
+import java.sql.SQLException;
 import java.util.Scanner;
 
+@Component
+@RequiredArgsConstructor
 public class ConsoleProgram {
-    public static void main(String[] args) throws SQLException, IOException {
-        try (DBManagement dbManagement = new DBManagement(); Scanner sc = new Scanner(System.in)) {
+    private final EmployeeInput employeeInput;
+    private final DBManagement dbManagement;
+
+    public void consoleProgram() throws SQLException, IOException {
+        try (Scanner sc = new Scanner(System.in)) {
             boolean stop = false;
 
             do {
@@ -30,7 +39,6 @@ public class ConsoleProgram {
                     case 5 -> dbManagement.displayPaidSalary();
                     case 6 -> dbManagement.displayAbsence();
                     case 7 -> {
-                        EmployeeInput employeeInput = EmployeeInput.getInstance();
                         Employee employee = employeeInput.employeeRead(sc);
                         dbManagement.employeeInput(employee);
                     }
@@ -39,4 +47,3 @@ public class ConsoleProgram {
         }
     }
 }
-
