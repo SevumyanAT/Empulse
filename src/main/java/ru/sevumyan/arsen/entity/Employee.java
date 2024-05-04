@@ -2,6 +2,7 @@ package ru.sevumyan.arsen.entity;
 
 import lombok.Setter;
 import lombok.Getter;
+import org.springframework.stereotype.Component;
 
 @Getter
 @Setter
