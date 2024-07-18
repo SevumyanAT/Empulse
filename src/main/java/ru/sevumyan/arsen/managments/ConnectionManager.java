@@ -1,11 +1,8 @@
-package ru.sevumyan.arsen.console;
+package ru.sevumyan.arsen.managments;
 
 import org.springframework.stereotype.Component;
 
-import java.sql.Connection;
-import java.sql.DriverManager;
-import java.sql.SQLException;
-import java.sql.Statement;
+import java.sql.*;
 
 @Component
 public class ConnectionManager {
@@ -16,12 +13,13 @@ public class ConnectionManager {
     private Connection connection;
     private Statement statement;
 
-    public Connection getConnection() {
+    public Connection getConnection(){
         if (connection == null) {
             try {
+                Class.forName("org.postgresql.Driver");
                 connection = DriverManager.getConnection(URL, USERNAME, PASSWORD);
-            } catch (SQLException e) {
-                throw new RuntimeException();
+            } catch (SQLException | ClassNotFoundException e) {
+                throw new RuntimeException(e);
             }
         } else {
             return connection;
@@ -35,13 +33,13 @@ public class ConnectionManager {
             try {
                 statement = connection.createStatement();
             } catch (SQLException e) {
-                throw new RuntimeException();
+                throw new RuntimeException(e);
             }
         } else if (statement == null) {
             try {
                 statement = connection.createStatement();
             } catch (SQLException e) {
-                throw new RuntimeException();
+                throw new RuntimeException(e);
             }
         } else {
             return statement;
