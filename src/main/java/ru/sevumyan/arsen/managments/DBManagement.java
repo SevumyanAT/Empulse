@@ -56,7 +56,6 @@ public class DBManagement {
     public String displayPosition() throws SQLException, JsonProcessingException {
         ArrayList<Position> positions = new ArrayList<>();
         String value = "";
-        ObjectMapper objectMapper = new ObjectMapper();
         objectMapper.enable(SerializationFeature.INDENT_OUTPUT);
 
         try (ResultSet rs = getStatement().executeQuery(POST)) {
