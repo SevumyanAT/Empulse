@@ -9,10 +9,10 @@ import org.springframework.stereotype.Component;
 public class Employee {
     private String firstName;
     private String lastName;
-    private String passportNumber;
+    private int passportNumber;
     private String universityEducation;
     private String birthDate;
-    private String bankAccount;
-    private String postId;
-    private String departmentId;
+    private int bankAccount;
+    private int postId;
+    private int departmentId;
 }

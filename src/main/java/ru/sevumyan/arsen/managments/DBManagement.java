@@ -1,14 +1,24 @@
-package ru.sevumyan.arsen.console;
+package ru.sevumyan.arsen.managments;
 
+import com.fasterxml.jackson.core.JsonProcessingException;
+import com.fasterxml.jackson.databind.ObjectMapper;
+import com.fasterxml.jackson.databind.SerializationFeature;
 import lombok.RequiredArgsConstructor;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 import org.springframework.stereotype.Component;
 import ru.sevumyan.arsen.entity.Employee;
+import ru.sevumyan.arsen.entity.Position;
+
 import java.sql.*;
+import java.util.ArrayList;
 
 @Component
 @RequiredArgsConstructor
 public class DBManagement {
+    private static final Logger LOGGER = LoggerFactory.getLogger(DBManagement.class.getName());
     private static final String EMPLOYEE = "Select * from employee";
+    private static final String COUNT = "select count (*) from employee;";
     private static final String DEPARTMENT = "Select * from department";
     private static final String WORKING_HOURS = "select * from working_hours";
     private static final String ABSENCE = "Select * from absence";
@@ -18,33 +28,50 @@ public class DBManagement {
     private static final String ANSI_BLUE = "\u001B[34m";
 
     private final ConnectionManager connectionManager;
+    private final ObjectMapper objectMapper = new ObjectMapper();
 
-    public void displayEmployees() throws SQLException {
+    public String displayEmployees() throws SQLException, JsonProcessingException {
+        ArrayList<Employee> employees = new ArrayList<>();
+        String value = "";
+        objectMapper.enable(SerializationFeature.INDENT_OUTPUT);
+
         try (ResultSet rs = getStatement().executeQuery(EMPLOYEE)) {
             while (rs.next()) {
-                System.out.print("First Name: " + rs.getString("first_name") + "\t");
-                System.out.print(ANSI_BLUE + " Last Name: " + rs.getString("last_name") + "\t");
-                System.out.print(ANSI_RESET + " Passport number: " + rs.getInt("passport_no") + "\t");
-                System.out.print(ANSI_BLUE + " University education: " + rs.getString("university_education") + "\t");
-                System.out.print(ANSI_RESET + " Birth date: " + rs.getDate("birth_date") + "\t");
-                System.out.print(ANSI_BLUE + " Bank account: " + rs.getInt("bank_account") + "\t");
-                System.out.print(ANSI_RESET + " Post ID: " + rs.getInt("post_id") + "\t");
-                System.out.print(ANSI_BLUE + " Department ID: " + rs.getInt("department_id") + "\t\n" + ANSI_RESET);
+                Employee employee = new Employee();
+                employee.setFirstName(rs.getString("first_name"));
+                employee.setLastName(rs.getString("last_name"));
+                employee.setPassportNumber(rs.getInt("passport_no"));
+                employee.setUniversityEducation(rs.getString("university_education"));
+                employee.setBirthDate(String.valueOf(rs.getDate("birth_date")));
+                employee.setBankAccount(rs.getInt("bank_account"));
+                employee.setPostId(rs.getInt("post_id"));
+                employee.setDepartmentId(rs.getInt("department_id"));
+                employees.add(employee);
             }
+            value = objectMapper.writeValueAsString(employees);
         }
+        return value;
     }
 
-    public void displayPost() throws SQLException {
+    public String displayPosition() throws SQLException, JsonProcessingException {
+        ArrayList<Position> positions = new ArrayList<>();
+        String value = "";
+        objectMapper.enable(SerializationFeature.INDENT_OUTPUT);
+
         try (ResultSet rs = getStatement().executeQuery(POST)) {
             while (rs.next()) {
-
-                System.out.print("Post name: " + rs.getString("post_name") + "\t");
-                System.out.print(ANSI_BLUE + " Wage: " + rs.getInt("wage") + "\t\n" + ANSI_RESET);
+                Position position = new Position();
+                position.setPost_Name(rs.getString("post_name"));
+                position.setWage(rs.getInt("wage"));
+                positions.add(position);
             }
+            value = objectMapper.writeValueAsString(positions);
         }
+        return value;
     }
 
     public void displayDepartment() throws SQLException {
+        ArrayList<String> departments = new ArrayList<>();
         try (ResultSet rs = getStatement().executeQuery(DEPARTMENT)) {
             while (rs.next()) {
                 System.out.print("Department Location: " + rs.getString("department_location") + "\t\n");
@@ -105,12 +132,12 @@ public class DBManagement {
         try (PreparedStatement preparedStatement = getConnection().prepareStatement(sql)) {
             preparedStatement.setString(1, employee.getFirstName());
             preparedStatement.setString(2, employee.getLastName());
-            preparedStatement.setInt(3, Integer.parseInt(employee.getPassportNumber()));
+            preparedStatement.setInt(3, employee.getPassportNumber());
             preparedStatement.setString(4, employee.getUniversityEducation());
             preparedStatement.setDate(5, Date.valueOf(employee.getBirthDate()));
-            preparedStatement.setInt(6, Integer.parseInt(employee.getBankAccount()));
-            preparedStatement.setInt(7, Integer.parseInt(employee.getPostId()));
-            preparedStatement.setInt(8, Integer.parseInt(employee.getDepartmentId()));
+            preparedStatement.setInt(6, employee.getBankAccount());
+            preparedStatement.setInt(7, employee.getPostId());
+            preparedStatement.setInt(8, employee.getDepartmentId());
             preparedStatement.executeUpdate();
         }
     }

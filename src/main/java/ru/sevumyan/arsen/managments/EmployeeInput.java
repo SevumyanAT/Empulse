@@ -1,4 +1,4 @@
-package ru.sevumyan.arsen.console;
+package ru.sevumyan.arsen.managments;
 
 import com.fasterxml.jackson.annotation.JsonAutoDetect;
 import com.fasterxml.jackson.annotation.PropertyAccessor;
