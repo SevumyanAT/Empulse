@@ -28,11 +28,11 @@ public class DBManagement {
     private static final String ANSI_BLUE = "\u001B[34m";
 
     private final ConnectionManager connectionManager;
+    private final ObjectMapper objectMapper = new ObjectMapper();
 
     public String displayEmployees() throws SQLException, JsonProcessingException {
         ArrayList<Employee> employees = new ArrayList<>();
         String value = "";
-        ObjectMapper objectMapper = new ObjectMapper();
         objectMapper.enable(SerializationFeature.INDENT_OUTPUT);
 
         try (ResultSet rs = getStatement().executeQuery(EMPLOYEE)) {
