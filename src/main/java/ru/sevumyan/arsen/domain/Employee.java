@@ -1,18 +1,21 @@
-package ru.sevumyan.arsen.entity;
+package ru.sevumyan.arsen.domain;
 
 import lombok.Setter;
 import lombok.Getter;
-import org.springframework.stereotype.Component;
+import lombok.experimental.Accessors;
+
+import java.time.LocalDate;
 
 @Getter
 @Setter
+@Accessors(chain = true)
 public class Employee {
     private String firstName;
     private String lastName;
-    private int passportNumber;
+    private String passportNumber;
     private String universityEducation;
-    private String birthDate;
-    private int bankAccount;
+    private LocalDate birthDate;
+    private String bankAccount;
     private int postId;
     private int departmentId;
 }

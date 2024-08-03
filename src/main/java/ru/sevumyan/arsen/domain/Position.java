@@ -1,4 +1,4 @@
-package ru.sevumyan.arsen.entity;
+package ru.sevumyan.arsen.domain;
 
 import lombok.Getter;
 import lombok.Setter;

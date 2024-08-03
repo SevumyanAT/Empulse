@@ -1,4 +1,4 @@
-package ru.sevumyan.arsen.managments;
+package ru.sevumyan.arsen.adapter.persistence;
 
 import org.springframework.stereotype.Component;
 
@@ -13,7 +13,7 @@ public class ConnectionManager {
     private Connection connection;
     private Statement statement;
 
-    public Connection getConnection(){
+    public Connection getConnection() {
         if (connection == null) {
             try {
                 Class.forName("org.postgresql.Driver");

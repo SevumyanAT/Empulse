@@ -1,22 +1,19 @@
-package ru.sevumyan.arsen.managments;
+package ru.sevumyan.arsen.adapter.persistence;
 
-import com.fasterxml.jackson.core.JsonProcessingException;
-import com.fasterxml.jackson.databind.ObjectMapper;
-import com.fasterxml.jackson.databind.SerializationFeature;
 import lombok.RequiredArgsConstructor;
-import org.slf4j.Logger;
-import org.slf4j.LoggerFactory;
 import org.springframework.stereotype.Component;
-import ru.sevumyan.arsen.entity.Employee;
-import ru.sevumyan.arsen.entity.Position;
+import ru.sevumyan.arsen.app.api.GetEmployeesInbound;
+import ru.sevumyan.arsen.app.api.GetPositionsInbound;
+import ru.sevumyan.arsen.domain.Employee;
+import ru.sevumyan.arsen.domain.Position;
 
 import java.sql.*;
 import java.util.ArrayList;
+import java.util.List;
 
 @Component
 @RequiredArgsConstructor
-public class DBManagement {
-    private static final Logger LOGGER = LoggerFactory.getLogger(DBManagement.class.getName());
+public class DBManagement implements GetEmployeesInbound, GetPositionsInbound {
     private static final String EMPLOYEE = "Select * from employee";
     private static final String COUNT = "select count (*) from employee;";
     private static final String DEPARTMENT = "Select * from department";
@@ -28,35 +25,31 @@ public class DBManagement {
     private static final String ANSI_BLUE = "\u001B[34m";
 
     private final ConnectionManager connectionManager;
-    private final ObjectMapper objectMapper = new ObjectMapper();
 
-    public String displayEmployees() throws SQLException, JsonProcessingException {
+    @Override
+    public List<Employee> execute() throws SQLException {
         ArrayList<Employee> employees = new ArrayList<>();
-        String value = "";
-        objectMapper.enable(SerializationFeature.INDENT_OUTPUT);
 
         try (ResultSet rs = getStatement().executeQuery(EMPLOYEE)) {
             while (rs.next()) {
                 Employee employee = new Employee();
                 employee.setFirstName(rs.getString("first_name"));
                 employee.setLastName(rs.getString("last_name"));
-                employee.setPassportNumber(rs.getInt("passport_no"));
+                employee.setPassportNumber(rs.getString("passport_no"));
                 employee.setUniversityEducation(rs.getString("university_education"));
-                employee.setBirthDate(String.valueOf(rs.getDate("birth_date")));
-                employee.setBankAccount(rs.getInt("bank_account"));
+                employee.setBirthDate(rs.getDate("birth_date").toLocalDate());
+                employee.setBankAccount(rs.getString("bank_account"));
                 employee.setPostId(rs.getInt("post_id"));
                 employee.setDepartmentId(rs.getInt("department_id"));
                 employees.add(employee);
             }
-            value = objectMapper.writeValueAsString(employees);
         }
-        return value;
+        return employees;
     }
 
-    public String displayPosition() throws SQLException, JsonProcessingException {
+    @Override
+    public List<Position> displayPositions() throws SQLException {
         ArrayList<Position> positions = new ArrayList<>();
-        String value = "";
-        objectMapper.enable(SerializationFeature.INDENT_OUTPUT);
 
         try (ResultSet rs = getStatement().executeQuery(POST)) {
             while (rs.next()) {
@@ -65,9 +58,8 @@ public class DBManagement {
                 position.setWage(rs.getInt("wage"));
                 positions.add(position);
             }
-            value = objectMapper.writeValueAsString(positions);
         }
-        return value;
+        return positions;
     }
 
     public void displayDepartment() throws SQLException {
@@ -132,10 +124,10 @@ public class DBManagement {
         try (PreparedStatement preparedStatement = getConnection().prepareStatement(sql)) {
             preparedStatement.setString(1, employee.getFirstName());
             preparedStatement.setString(2, employee.getLastName());
-            preparedStatement.setInt(3, employee.getPassportNumber());
+            preparedStatement.setString(3, employee.getPassportNumber());
             preparedStatement.setString(4, employee.getUniversityEducation());
             preparedStatement.setDate(5, Date.valueOf(employee.getBirthDate()));
-            preparedStatement.setInt(6, employee.getBankAccount());
+            preparedStatement.setString(6, employee.getBankAccount());
             preparedStatement.setInt(7, employee.getPostId());
             preparedStatement.setInt(8, employee.getDepartmentId());
             preparedStatement.executeUpdate();

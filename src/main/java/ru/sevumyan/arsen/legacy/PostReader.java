@@ -1,4 +1,4 @@
-package ru.sevumyan.arsen.post;
+package ru.sevumyan.arsen.legacy;
 
 import java.io.BufferedReader;
 import java.io.FileReader;
