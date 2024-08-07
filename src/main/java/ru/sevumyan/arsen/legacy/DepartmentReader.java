@@ -1,4 +1,4 @@
-package ru.sevumyan.arsen.department;
+package ru.sevumyan.arsen.legacy;
 
 import java.io.File;
 import java.util.Scanner;

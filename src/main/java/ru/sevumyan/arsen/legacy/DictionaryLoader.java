@@ -1,4 +1,4 @@
-package ru.sevumyan.arsen.database;
+package ru.sevumyan.arsen.legacy;
 
 import java.io.BufferedReader;
 import java.io.FileReader;
@@ -13,10 +13,6 @@ public class DictionaryLoader {
     static final String QUERY = "Select * from employee";
     static final String path1 = "src\\main\\resources\\post.csv";
     static final String path2 = "src\\main\\resources\\Department.csv";
-
-    public static void main(String[] args) throws SQLException, IOException {
-
-    }
 
     public static void postorder() throws SQLException, IOException {
         Properties props = new Properties();
