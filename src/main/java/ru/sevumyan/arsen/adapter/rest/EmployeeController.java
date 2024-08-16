@@ -4,11 +4,11 @@ import lombok.RequiredArgsConstructor;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
-import ru.sevumyan.arsen.adapter.persistence.NewEntityOfEmployee;
 import ru.sevumyan.arsen.app.api.*;
 import ru.sevumyan.arsen.domain.*;
 
 import java.sql.SQLException;
+import java.time.LocalDate;
 import java.util.List;
 
 @RestController
@@ -21,7 +21,6 @@ public class EmployeeController {
     private final DepartmentRepository departmentRepository;
     private final PaidSalaryRepository paidSalaryRepository;
     private final AbsenceRepository absenceRepository;
-    private final NewEntityOfEmployee employee;
 
     @GetMapping("/employees")
     public List<Employee> getEmployee() throws SQLException {
@@ -55,7 +54,19 @@ public class EmployeeController {
 
     @GetMapping("/newemployee")
     public Employee insertOrUpdate(){
-       return employeeRepository.updateOrInsert(employee.newEmployee());
+       return employeeRepository.updateOrInsert(newEmployee());
+    }
+
+    private Employee newEmployee(){
+        return new Employee()
+                .setFirstName("Ivan")
+                .setLastName("Ostolobov")
+                .setBankAccount(888891322)
+                .setBirthDate(LocalDate.of(1983,6,24))
+                .setPassportNumber(19527781)
+                .setUniversityEducation("GGTU")
+                .setPostId(4)
+                .setDepartmentId(1);
     }
 
 }
