@@ -12,13 +12,13 @@ public class NewEntityOfEmployee {
 
     public Employee newEmployee(){
         return new Employee()
-                .setFirstName("Svyatoslav")
-                .setLastName("Zenidarov")
-                .setBankAccount(88889830)
-                .setBirthDate(LocalDate.of(1984,4,12))
-                .setPassportNumber(1952566)
-                .setUniversityEducation("MGU")
-                .setPostId(1)
-                .setDepartmentId(1);
+                .setFirstName("Dmitriy")
+                .setLastName("Dobrov")
+                .setBankAccount(888891320)
+                .setBirthDate(LocalDate.of(1983,2,1))
+                .setPassportNumber(1952774)
+                .setUniversityEducation("GGTU")
+                .setPostId(4)
+                .setDepartmentId(2);
     }
 }

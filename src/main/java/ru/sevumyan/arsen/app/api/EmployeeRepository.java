@@ -7,5 +7,5 @@ import java.util.List;
 public interface EmployeeRepository {
     List<Employee> findAll();
 
-    void updateOrInsert(Employee employee);
+    Employee updateOrInsert(Employee employee);
 }

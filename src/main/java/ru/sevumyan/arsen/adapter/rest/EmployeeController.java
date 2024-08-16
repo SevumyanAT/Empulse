@@ -54,8 +54,8 @@ public class EmployeeController {
     }
 
     @GetMapping("/newemployee")
-    public void insertOrUpdate(){
-        employeeRepository.updateOrInsert(employee.newEmployee());
+    public Employee insertOrUpdate(){
+       return employeeRepository.updateOrInsert(employee.newEmployee());
     }
 
 }
