@@ -16,4 +16,5 @@ public class PositionsRepositoryAdapter implements PositionsRepository {
     public List<Position> findAll() {
         return positionsJpaRepository.findAll();
     }
+
 }

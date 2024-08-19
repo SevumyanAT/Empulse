@@ -19,8 +19,9 @@ public class PaidSalary {
     @Column(name="id")
     @GeneratedValue(strategy= GenerationType.IDENTITY)
     private long id;
-    @Column(name="employee_id")
-    private long employeeId;
+    @ManyToOne
+    @JoinColumn(name = "employee_id", insertable = false, updatable = false)
+    private Employee employee;
     @Column(name="payment_date")
     private LocalDate paymentDate;
     @Column(name="bank_account")

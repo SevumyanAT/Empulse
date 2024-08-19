@@ -1,72 +1,33 @@
 package ru.sevumyan.arsen.adapter.rest;
 
 import lombok.RequiredArgsConstructor;
-import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RestController;
+import org.springframework.http.HttpStatus;
+import org.springframework.http.MediaType;
+import org.springframework.http.ResponseEntity;
+import org.springframework.web.bind.annotation.*;
 import ru.sevumyan.arsen.app.api.*;
 import ru.sevumyan.arsen.domain.*;
 
+import java.awt.*;
 import java.sql.SQLException;
-import java.time.LocalDate;
 import java.util.List;
 
 @RestController
 @RequiredArgsConstructor
-@RequestMapping("/api/home")
+@RequestMapping("/api/employee")
 public class EmployeeController {
     private final EmployeeRepository employeeRepository;
-    private final PositionsRepository positionsRepository;
-    private final WorkingHoursRepository workingHoursRepository;
-    private final DepartmentRepository departmentRepository;
-    private final PaidSalaryRepository paidSalaryRepository;
-    private final AbsenceRepository absenceRepository;
 
-    @GetMapping("/employees")
+    @GetMapping("/getemployees")
     public List<Employee> getEmployee() throws SQLException {
         return employeeRepository.findAll();
     }
 
-    @GetMapping("/positions")
-    public List<Position> getPositions() throws SQLException {
-        return positionsRepository.findAll();
-    }
-
-    @GetMapping("/absence")
-    public List<Absence> getAbsence() throws SQLException {
-        return absenceRepository.findAll();
-    }
-
-    @GetMapping("/paidsalary")
-    public List<PaidSalary> getPaidSalary() throws SQLException {
-        return paidSalaryRepository.findAll();
-    }
-
-    @GetMapping("/workinghours")
-    public List<WorkingHours> getWorkingHours() throws SQLException {
-        return workingHoursRepository.findAll();
-    }
-
-    @GetMapping("/department")
-    public List<Department> getDepartment(){
-        return departmentRepository.findAll();
-    }
-
-    @GetMapping("/newemployee")
-    public Employee insertOrUpdate(){
-       return employeeRepository.updateOrInsert(newEmployee());
-    }
-
-    private Employee newEmployee(){
-        return new Employee()
-                .setFirstName("Ivan")
-                .setLastName("Ostolobov")
-                .setBankAccount(888891322)
-                .setBirthDate(LocalDate.of(1983,6,24))
-                .setPassportNumber(19527781)
-                .setUniversityEducation("GGTU")
-                .setPostId(4)
-                .setDepartmentId(1);
+    @PostMapping(value = "/newemployee",
+            consumes = MediaType.APPLICATION_JSON_VALUE)
+    public ResponseEntity<Employee> insertOrUpdate(@RequestBody Employee employee) {
+        Employee employee1 = employeeRepository.save(employee);
+        return new ResponseEntity<>(employee1, HttpStatus.CREATED);
     }
 
 }

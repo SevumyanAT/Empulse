@@ -19,7 +19,7 @@ public class EmployeeRepositoryAdapter implements EmployeeRepository {
     }
 
     @Override
-    public Employee updateOrInsert(Employee employee){
+    public Employee save(Employee employee) {
         employeeJpaRepository.save(employee);
         return employeeJpaRepository.getReferenceById(employee.getId());
     }

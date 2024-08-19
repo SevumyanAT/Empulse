@@ -19,22 +19,22 @@ import java.time.LocalDate;
 public class Employee {
     @Id
     @Column(name = "id")
-    @GeneratedValue(strategy= GenerationType.IDENTITY)
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
     private long id;
     @Column(name = "first_name")
     private String firstName;
     @Column(name = "last_name")
     private String lastName;
     @Column(name = "passport_no")
-    private int passportNumber;
+    private String passportNumber;
     @Column(name = "university_education")
     private String universityEducation;
     @Column(name = "birth_date")
     private LocalDate birthDate;
     @Column(name = "bank_account")
-    private int bankAccount;
+    private String bankAccount;
     @Column(name = "post_id")
-    private int postId;
+    private long position;
     @Column(name = "department_id")
-    private int departmentId;
+    private long department;
 }

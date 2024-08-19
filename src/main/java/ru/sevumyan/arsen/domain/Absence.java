@@ -5,6 +5,7 @@ import lombok.Getter;
 import lombok.RequiredArgsConstructor;
 import lombok.Setter;
 import lombok.experimental.Accessors;
+import org.springframework.boot.autoconfigure.cassandra.CassandraAutoConfiguration;
 
 import java.time.LocalDate;
 
@@ -19,8 +20,9 @@ public class Absence {
     @Column(name="id")
     @GeneratedValue(strategy= GenerationType.IDENTITY)
     private long id;
-    @Column(name="employee_id")
-    private long employeeId;
+    @ManyToOne
+    @JoinColumn(name = "employee_id", insertable = false, updatable = false)
+    private Employee employee;
     @Column(name="absence_date")
     private LocalDate absenceDate;
     @Column(name="bank_account")

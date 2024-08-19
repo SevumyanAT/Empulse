@@ -11,14 +11,14 @@ import lombok.experimental.Accessors;
 @Entity
 @Accessors(chain = true)
 @NoArgsConstructor
-@Table(name = "positions")
+@Table(name = "position")
 public class Position {
     @Id
-    @Column(name="id")
-    @GeneratedValue(strategy= GenerationType.IDENTITY)
+    @Column(name = "id")
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
     private long id;
-    @Column(name="post_name")
-    private String post_Name;
-    @Column(name="wage")
+    @Column(name = "post_name")
+    private String postName;
+    @Column(name = "wage")
     private int wage;
 }
