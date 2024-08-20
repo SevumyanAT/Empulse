@@ -14,20 +14,19 @@ import java.time.LocalDate;
 @Entity
 @Accessors(chain = true)
 @RequiredArgsConstructor
-@Table(name="absence")
+@Table(name = "absence")
 public class Absence {
     @Id
-    @Column(name="id")
-    @GeneratedValue(strategy= GenerationType.IDENTITY)
+    @Column(name = "id")
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
     private long id;
     @ManyToOne
     @JoinColumn(name = "employee_id", insertable = false, updatable = false)
     private Employee employee;
-    @Column(name="absence_date")
+    @Column(name = "absence_date")
     private LocalDate absenceDate;
-    @Column(name="bank_account")
+    @Column(name = "bank_account")
     private String bankAccount;
-    @Column(name="cause")
+    @Column(name = "cause")
     private String cause;
-
 }

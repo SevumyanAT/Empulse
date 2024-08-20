@@ -17,9 +17,9 @@ import java.time.LocalDate;
 @Table(name = "department")
 public class Department {
     @Id
-    @Column(name="id")
-    @GeneratedValue(strategy= GenerationType.IDENTITY)
+    @Column(name = "id")
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
     private long id;
-    @Column(name="department_location")
+    @Column(name = "department_location")
     private String departmentLocation;
-    }
+}

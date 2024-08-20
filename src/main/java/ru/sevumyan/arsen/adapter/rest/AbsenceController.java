@@ -12,13 +12,12 @@ import java.util.List;
 
 @RestController
 @RequiredArgsConstructor
-@RequestMapping("/api/absence")
+@RequestMapping("/api")
 public class AbsenceController {
     private final AbsenceRepository absenceRepository;
 
-    @GetMapping("/getabsence")
+    @GetMapping("/absences")
     public List<Absence> getAbsence() throws SQLException {
         return absenceRepository.findAll();
     }
-
 }

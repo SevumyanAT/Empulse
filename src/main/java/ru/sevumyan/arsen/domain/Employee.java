@@ -33,8 +33,10 @@ public class Employee {
     private LocalDate birthDate;
     @Column(name = "bank_account")
     private String bankAccount;
-    @Column(name = "post_id")
-    private long position;
-    @Column(name = "department_id")
-    private long department;
+    @ManyToOne
+    @JoinColumn(name = "post_id")
+    private Position position;
+    @ManyToOne
+    @JoinColumn(name = "department_id")
+    private Department department;
 }

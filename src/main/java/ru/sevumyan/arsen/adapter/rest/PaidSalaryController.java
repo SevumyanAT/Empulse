@@ -12,11 +12,11 @@ import java.util.List;
 
 @RestController
 @RequiredArgsConstructor
-@RequestMapping("/api/paidsalary")
+@RequestMapping("/api")
 public class PaidSalaryController {
     private final PaidSalaryRepository paidSalaryRepository;
 
-    @GetMapping("/getpaidsalary")
+    @GetMapping("/paid-salaries")
     public List<PaidSalary> getPaidSalary() throws SQLException {
         return paidSalaryRepository.findAll();
     }

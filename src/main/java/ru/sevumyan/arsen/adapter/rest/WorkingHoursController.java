@@ -12,11 +12,11 @@ import java.util.List;
 
 @RestController
 @RequiredArgsConstructor
-@RequestMapping("/api/workinghours")
+@RequestMapping("/api")
 public class WorkingHoursController {
     private final WorkingHoursRepository workingHoursRepository;
 
-    @GetMapping("/getworkinghours")
+    @GetMapping("/getworking-hours")
     public List<WorkingHours> getWorkingHours() throws SQLException {
         return workingHoursRepository.findAll();
     }

@@ -16,12 +16,12 @@ import java.time.LocalDate;
 @Table(name = "working_hours")
 public class WorkingHours {
     @Id
-    @Column(name="id")
-    @GeneratedValue(strategy= GenerationType.IDENTITY)
+    @Column(name = "id")
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
     private long id;
     @ManyToOne
     @JoinColumn(name = "employee_id", insertable = false, updatable = false)
     private Employee employee;
-    @Column(name="working_hours")
+    @Column(name = "working_hours")
     private int workingHours;
 }

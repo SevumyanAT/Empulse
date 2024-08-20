@@ -12,11 +12,11 @@ import java.util.List;
 
 @RestController
 @RequiredArgsConstructor
-@RequestMapping("/api/positions")
+@RequestMapping("/api")
 public class PositionsController {
     private final PositionsRepository positionsRepository;
 
-    @GetMapping("/getpositions")
+    @GetMapping("/positions")
     public List<Position> getPositions() throws SQLException {
         return positionsRepository.findAll();
     }
