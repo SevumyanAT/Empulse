@@ -7,17 +7,16 @@ import org.springframework.web.bind.annotation.RestController;
 import ru.sevumyan.arsen.app.api.PositionsRepository;
 import ru.sevumyan.arsen.domain.Position;
 
-import java.sql.SQLException;
 import java.util.List;
 
 @RestController
 @RequiredArgsConstructor
-@RequestMapping("/api")
+@RequestMapping("/positions")
 public class PositionsController {
     private final PositionsRepository positionsRepository;
 
-    @GetMapping("/positions")
-    public List<Position> getPositions() throws SQLException {
+    @GetMapping
+    public List<Position> getPositions() {
         return positionsRepository.findAll();
     }
 }

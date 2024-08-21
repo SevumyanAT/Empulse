@@ -7,17 +7,16 @@ import org.springframework.web.bind.annotation.RestController;
 import ru.sevumyan.arsen.app.api.AbsenceRepository;
 import ru.sevumyan.arsen.domain.Absence;
 
-import java.sql.SQLException;
 import java.util.List;
 
 @RestController
 @RequiredArgsConstructor
-@RequestMapping("/api")
+@RequestMapping("/absences")
 public class AbsenceController {
     private final AbsenceRepository absenceRepository;
 
-    @GetMapping("/absences")
-    public List<Absence> getAbsence() throws SQLException {
+    @GetMapping
+    public List<Absence> getAbsence() {
         return absenceRepository.findAll();
     }
 }

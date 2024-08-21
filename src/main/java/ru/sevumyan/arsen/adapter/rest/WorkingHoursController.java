@@ -7,17 +7,16 @@ import org.springframework.web.bind.annotation.RestController;
 import ru.sevumyan.arsen.app.api.WorkingHoursRepository;
 import ru.sevumyan.arsen.domain.WorkingHours;
 
-import java.sql.SQLException;
 import java.util.List;
 
 @RestController
 @RequiredArgsConstructor
-@RequestMapping("/api")
+@RequestMapping("/working-hours")
 public class WorkingHoursController {
     private final WorkingHoursRepository workingHoursRepository;
 
-    @GetMapping("/getworking-hours")
-    public List<WorkingHours> getWorkingHours() throws SQLException {
+    @GetMapping
+    public List<WorkingHours> getWorkingHours() {
         return workingHoursRepository.findAll();
     }
 }

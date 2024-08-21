@@ -1,8 +1,6 @@
 package ru.sevumyan.arsen.adapter.rest;
 
 import lombok.RequiredArgsConstructor;
-import org.springframework.http.HttpStatus;
-import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 import ru.sevumyan.arsen.app.api.*;
 import ru.sevumyan.arsen.domain.*;

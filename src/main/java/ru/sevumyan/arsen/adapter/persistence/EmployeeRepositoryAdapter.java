@@ -4,7 +4,6 @@ import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Component;
 import ru.sevumyan.arsen.app.api.EmployeeRepository;
 import ru.sevumyan.arsen.domain.Employee;
-import ru.sevumyan.arsen.domain.Position;
 
 import java.util.List;
 

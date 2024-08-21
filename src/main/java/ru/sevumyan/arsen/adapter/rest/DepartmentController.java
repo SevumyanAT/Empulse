@@ -11,11 +11,11 @@ import java.util.List;
 
 @RestController
 @RequiredArgsConstructor
-@RequestMapping("/api")
+@RequestMapping("/departments")
 public class DepartmentController {
     private final DepartmentRepository departmentRepository;
 
-    @GetMapping("/departments")
+    @GetMapping
     public List<Department> getDepartment() {
         return departmentRepository.findAll();
     }
