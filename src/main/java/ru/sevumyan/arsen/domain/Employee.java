@@ -2,6 +2,7 @@ package ru.sevumyan.arsen.domain;
 
 import jakarta.persistence.*;
 import lombok.NoArgsConstructor;
+import lombok.RequiredArgsConstructor;
 import lombok.Setter;
 import lombok.Getter;
 import lombok.experimental.Accessors;
@@ -18,6 +19,7 @@ import java.time.LocalDate;
 public class Employee {
     @Id
     @Column(name = "id")
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
     private long id;
     @Column(name = "first_name")
     private String firstName;
@@ -31,8 +33,10 @@ public class Employee {
     private LocalDate birthDate;
     @Column(name = "bank_account")
     private String bankAccount;
-    @Column(name = "post_id")
-    private int postId;
-    @Column(name = "department_id")
-    private int departmentId;
+    @ManyToOne
+    @JoinColumn(name = "post_id")
+    private Position position;
+    @ManyToOne
+    @JoinColumn(name = "department_id")
+    private Department department;
 }

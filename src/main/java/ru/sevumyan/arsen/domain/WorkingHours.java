@@ -11,14 +11,15 @@ import lombok.experimental.Accessors;
 @Entity
 @Accessors(chain = true)
 @NoArgsConstructor
-@Table(name = "position")
-public class Position {
+@Table(name = "working_hours")
+public class WorkingHours {
     @Id
     @Column(name = "id")
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private long id;
-    @Column(name = "post_name")
-    private String postName;
-    @Column(name = "wage")
-    private int wage;
+    @ManyToOne
+    @JoinColumn(name = "employee_id", insertable = false, updatable = false)
+    private Employee employee;
+    @Column(name = "working_hours")
+    private int workingHours;
 }
