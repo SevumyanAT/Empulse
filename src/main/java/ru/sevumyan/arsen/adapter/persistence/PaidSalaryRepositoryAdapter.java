@@ -11,6 +11,7 @@ import java.util.List;
 @RequiredArgsConstructor
 public class PaidSalaryRepositoryAdapter implements PaidSalaryRepository {
     private final PaidSalaryJpaRepository paidSalaryJpaRepository;
+
     @Override
     public List<PaidSalary> findAll(){
         return paidSalaryJpaRepository.findAll();

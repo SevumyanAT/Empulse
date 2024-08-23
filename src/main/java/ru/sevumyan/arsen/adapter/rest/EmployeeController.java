@@ -9,11 +9,11 @@ import java.util.List;
 
 @RestController
 @RequiredArgsConstructor
-@RequestMapping("/api")
+@RequestMapping("/employees")
 public class EmployeeController {
     private final EmployeeRepository employeeRepository;
 
-    @GetMapping("/employees")
+    @GetMapping
     public List<Employee> getEmployees() {
         return employeeRepository.findAll();
     }
