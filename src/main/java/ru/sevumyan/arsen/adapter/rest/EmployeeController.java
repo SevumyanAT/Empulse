@@ -22,4 +22,9 @@ public class EmployeeController {
     public Employee create(@RequestBody Employee employee) {
         return employeeRepository.save(employee);
     }
+
+    @GetMapping("/mentors")
+    public List<Employee> getMentors() {
+        return employeeRepository.findMentors();
+    }
 }

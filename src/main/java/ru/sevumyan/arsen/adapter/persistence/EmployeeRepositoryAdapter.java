@@ -19,6 +19,11 @@ public class EmployeeRepositoryAdapter implements EmployeeRepository {
 
     @Override
     public Employee save(Employee employee) {
-      return  employeeJpaRepository.save(employee);
+        return employeeJpaRepository.save(employee);
+    }
+
+    @Override
+    public List<Employee> findMentors() {
+        return employeeJpaRepository.findMentor();
     }
 }

@@ -33,6 +33,9 @@ public class Employee {
     private LocalDate birthDate;
     @Column(name = "bank_account")
     private String bankAccount;
+    @OneToOne
+    @JoinColumn(name = "mentor_id")
+    private Employee employee;
     @ManyToOne
     @JoinColumn(name = "post_id")
     private Position position;
