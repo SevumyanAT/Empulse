@@ -10,6 +10,6 @@ public interface EmployeeJpaRepository extends JpaRepository<Employee, Long> {
 
     @Query(value = "select * from employee where mentor_id is null",
             nativeQuery = true)
-    List<Employee> findMentor();
+    List<Employee> findEmployeesWithoutMentors();
 }
 

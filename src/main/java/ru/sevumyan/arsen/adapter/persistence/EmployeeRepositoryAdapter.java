@@ -23,7 +23,7 @@ public class EmployeeRepositoryAdapter implements EmployeeRepository {
     }
 
     @Override
-    public List<Employee> findMentors() {
-        return employeeJpaRepository.findMentor();
+    public List<Employee> findEmployeesWithoutMentors() {
+        return employeeJpaRepository.findEmployeesWithoutMentors();
     }
 }

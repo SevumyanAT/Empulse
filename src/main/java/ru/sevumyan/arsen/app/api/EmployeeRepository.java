@@ -9,5 +9,5 @@ public interface EmployeeRepository {
 
     Employee save(Employee employee);
 
-    List<Employee> findMentors();
+    List<Employee> findEmployeesWithoutMentors();
 }

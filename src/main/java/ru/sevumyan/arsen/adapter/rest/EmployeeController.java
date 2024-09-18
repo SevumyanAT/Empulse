@@ -23,8 +23,8 @@ public class EmployeeController {
         return employeeRepository.save(employee);
     }
 
-    @GetMapping("/mentors")
-    public List<Employee> getMentors() {
-        return employeeRepository.findMentors();
+    @GetMapping("/without-mentors")
+    public List<Employee> getEmployeesWithOutMentors() {
+        return employeeRepository.findEmployeesWithoutMentors();
     }
 }
