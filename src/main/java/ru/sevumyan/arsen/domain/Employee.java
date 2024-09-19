@@ -34,7 +34,7 @@ public class Employee {
     private String bankAccount;
     @OneToOne(fetch = FetchType.LAZY)
     @JoinColumn(name = "mentor_id")
-    private Employee employeeWithoutMentor;
+    private Employee mentorId;
     @ManyToOne
     @JoinColumn(name = "positions_id")
     private Position position;
