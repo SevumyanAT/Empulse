@@ -2,7 +2,6 @@ package ru.sevumyan.arsen.domain;
 
 import jakarta.persistence.*;
 import lombok.NoArgsConstructor;
-import lombok.RequiredArgsConstructor;
 import lombok.Setter;
 import lombok.Getter;
 import lombok.experimental.Accessors;
@@ -33,8 +32,11 @@ public class Employee {
     private LocalDate birthDate;
     @Column(name = "bank_account")
     private String bankAccount;
+    @OneToOne(fetch = FetchType.LAZY)
+    @JoinColumn(name = "mentor_id")
+    private Employee mentor;
     @ManyToOne
-    @JoinColumn(name = "post_id")
+    @JoinColumn(name = "positions_id")
     private Position position;
     @ManyToOne
     @JoinColumn(name = "department_id")

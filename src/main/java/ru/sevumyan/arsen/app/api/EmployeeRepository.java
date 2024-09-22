@@ -8,4 +8,6 @@ public interface EmployeeRepository {
     List<Employee> findAll();
 
     Employee save(Employee employee);
+
+    List<Employee> findEmployeesWithoutMentors();
 }
