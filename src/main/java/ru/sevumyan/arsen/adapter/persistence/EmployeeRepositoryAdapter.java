@@ -6,7 +6,6 @@ import ru.sevumyan.arsen.app.api.EmployeeRepository;
 import ru.sevumyan.arsen.domain.Employee;
 
 import java.util.List;
-import java.util.Optional;
 
 @Component
 @RequiredArgsConstructor
@@ -26,10 +25,5 @@ public class EmployeeRepositoryAdapter implements EmployeeRepository {
     @Override
     public List<Employee> findEmployeesWithoutMentors() {
         return employeeJpaRepository.findEmployeesWithoutMentors();
-    }
-
-    @Override
-    public Optional<Employee> findById(Long id) {
-        return employeeJpaRepository.findEmployeeById(id);
     }
 }
