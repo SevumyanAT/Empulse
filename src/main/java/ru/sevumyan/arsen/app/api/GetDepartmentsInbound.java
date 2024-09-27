@@ -6,8 +6,9 @@ import ru.sevumyan.arsen.domain.Employee;
 import java.util.List;
 import java.util.Optional;
 
-public interface DepartmentRepository {
-    List<Department> findAll();
+public interface GetDepartmentsInbound {
 
-  //  Optional<Department> findAllEmployeesById(Long id);
+    List<Department> getAll();
+
+  //  Optional<Department> getAllEmployeesFromDepartment(Long id);
 }

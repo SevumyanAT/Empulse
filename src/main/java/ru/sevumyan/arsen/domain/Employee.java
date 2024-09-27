@@ -1,5 +1,7 @@
 package ru.sevumyan.arsen.domain;
 
+import com.fasterxml.jackson.annotation.JsonBackReference;
+import com.fasterxml.jackson.annotation.JsonInclude;
 import jakarta.persistence.*;
 import lombok.NoArgsConstructor;
 import lombok.Setter;
@@ -32,6 +34,7 @@ public class Employee {
     private LocalDate birthDate;
     @Column(name = "bank_account")
     private String bankAccount;
+    @JsonInclude(JsonInclude.Include.NON_NULL)
     @OneToOne(fetch = FetchType.LAZY)
     @JoinColumn(name = "mentor_id")
     private Employee mentor;

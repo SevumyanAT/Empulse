@@ -4,7 +4,12 @@ import ru.sevumyan.arsen.domain.Employee;
 
 import java.sql.SQLException;
 import java.util.List;
+import java.util.Optional;
 
 public interface GetEmployeesInbound {
-    List<Employee> execute() throws SQLException;
+    List<Employee> getAll();
+
+    List<Employee> getAllWithoutMentors();
+
+    Optional<Employee> getById(Long id);
 }
