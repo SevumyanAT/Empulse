@@ -6,5 +6,5 @@ import java.sql.SQLException;
 import java.util.List;
 
 public interface GetPositionsInbound {
-    List<Position> getAll();
+    List<Position> displayPositions() throws SQLException;
 }
