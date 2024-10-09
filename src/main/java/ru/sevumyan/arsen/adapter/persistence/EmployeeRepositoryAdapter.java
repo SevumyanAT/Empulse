@@ -26,4 +26,15 @@ public class EmployeeRepositoryAdapter implements EmployeeRepository {
     public List<Employee> findEmployeesWithoutMentors() {
         return employeeJpaRepository.findEmployeesWithoutMentors();
     }
+
+    @Override
+    public Employee getById(Long id) {
+        return employeeJpaRepository.findById(id)
+                .orElseThrow();
+    }
+
+    @Override
+    public List<Employee> findEmployeesFromDepartment(Long id) {
+        return employeeJpaRepository.findEmployeesFromDepartment(id);
+    }
 }

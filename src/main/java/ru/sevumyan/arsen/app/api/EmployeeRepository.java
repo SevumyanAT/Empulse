@@ -10,4 +10,8 @@ public interface EmployeeRepository {
     Employee save(Employee employee);
 
     List<Employee> findEmployeesWithoutMentors();
+
+    Employee getById(Long id);
+
+    List<Employee> findEmployeesFromDepartment(Long id);
 }
