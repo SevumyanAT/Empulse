@@ -1,13 +1,12 @@
 package ru.sevumyan.arsen.domain;
 
-
 import jakarta.persistence.*;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
 import lombok.Setter;
 import lombok.experimental.Accessors;
 
-import java.time.LocalDate;
+import java.util.List;
 
 @Getter
 @Setter
@@ -22,4 +21,7 @@ public class Department {
     private long id;
     @Column(name = "department_location")
     private String departmentLocation;
+    @OneToMany
+    @JoinColumn(name = "department_id")
+    private List<Employee> employees;
 }
