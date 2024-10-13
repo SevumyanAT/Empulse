@@ -6,7 +6,6 @@ import ru.sevumyan.arsen.adapter.rest.dto.DepartmentDto;
 import ru.sevumyan.arsen.app.impl.GetDepartmentsUseCase;
 import ru.sevumyan.arsen.domain.Department;
 
-import java.util.ArrayList;
 import java.util.List;
 
 @RestController
@@ -16,14 +15,11 @@ public class DepartmentController {
     private final GetDepartmentsUseCase getDepartmentsUseCase;
 
     @GetMapping
-    public List<DepartmentDto> getDepartment() {
+    public List<DepartmentDto> getDepartments() {
         List<Department> departments = getDepartmentsUseCase.getAll();
-        List<DepartmentDto> departmentsDto = new ArrayList<>();
-        departments.forEach(department -> {
-            DepartmentDto departmentDto = createDepartmentDto(department);
-            departmentsDto.add(departmentDto);
-        });
-        return departmentsDto;
+        return departments.stream()
+                .map(this::createDepartmentDto)
+                .toList();
     }
 
     private DepartmentDto createDepartmentDto(Department department) {

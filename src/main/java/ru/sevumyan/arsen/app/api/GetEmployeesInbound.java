@@ -11,5 +11,5 @@ public interface GetEmployeesInbound {
 
     Employee getById(Long id);
 
-    List<Employee> getEmployeesFromDepartment(Long id);
+    List<Employee> getByDepartmentId(Long id);
 }

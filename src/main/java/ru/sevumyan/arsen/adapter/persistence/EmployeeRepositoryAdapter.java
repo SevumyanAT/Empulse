@@ -24,7 +24,7 @@ public class EmployeeRepositoryAdapter implements EmployeeRepository {
 
     @Override
     public List<Employee> findEmployeesWithoutMentors() {
-        return employeeJpaRepository.findEmployeesWithoutMentors();
+        return employeeJpaRepository.findAllByMentorIsNull();
     }
 
     @Override
@@ -34,7 +34,7 @@ public class EmployeeRepositoryAdapter implements EmployeeRepository {
     }
 
     @Override
-    public List<Employee> findEmployeesFromDepartment(Long id) {
-        return employeeJpaRepository.findEmployeesFromDepartment(id);
+    public List<Employee> findByDepartmentId(Long id) {
+        return employeeJpaRepository.findByDepartmentId(id);
     }
 }

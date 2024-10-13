@@ -12,31 +12,28 @@ import java.util.List;
 
 @Service
 @Slf4j
+@Transactional(readOnly = true)
 @RequiredArgsConstructor
 public class GetEmployeesUseCase implements GetEmployeesInbound {
     private final EmployeeRepository employeeRepository;
 
     @Override
-    @Transactional(readOnly = true)
     public List<Employee> getAll() {
         return employeeRepository.findAll();
     }
 
     @Override
-    @Transactional(readOnly = true)
     public List<Employee> getAllWithoutMentors() {
         return employeeRepository.findEmployeesWithoutMentors();
     }
 
     @Override
-    @Transactional(readOnly = true)
     public Employee getById(Long id) {
         return employeeRepository.getById(id);
 }
 
     @Override
-    @Transactional(readOnly = true)
-    public List<Employee> getEmployeesFromDepartment(Long id) {
-        return employeeRepository.findEmployeesFromDepartment(id);
+    public List<Employee> getByDepartmentId(Long id) {
+        return employeeRepository.findByDepartmentId(id);
     }
 }

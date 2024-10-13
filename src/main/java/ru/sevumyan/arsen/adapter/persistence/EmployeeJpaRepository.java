@@ -7,13 +7,8 @@ import ru.sevumyan.arsen.domain.Employee;
 import java.util.List;
 
 public interface EmployeeJpaRepository extends JpaRepository<Employee, Long> {
+    List<Employee> findAllByMentorIsNull();
 
-    @Query(value = "select * from employee where mentor_id is null",
-            nativeQuery = true)
-    List<Employee> findEmployeesWithoutMentors();
-
-    @Query(value = "select * from employee where department_id = :id",
-            nativeQuery = true)
-    List<Employee> findEmployeesFromDepartment(Long id);
+    List<Employee> findByDepartmentId(Long id);
 }
 

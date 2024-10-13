@@ -8,34 +8,35 @@ import ru.sevumyan.arsen.app.impl.CreateEmployeeUseCase;
 import ru.sevumyan.arsen.app.impl.GetEmployeesUseCase;
 import ru.sevumyan.arsen.domain.*;
 
-import java.util.ArrayList;
 import java.util.List;
 
 @RestController
 @RequiredArgsConstructor
 @RequestMapping("/employees")
-public class EmployeeController {
+public class EmployeesController {
     private final CreateEmployeeUseCase createEmployeeUseCase;
     private final GetEmployeesUseCase getEmployeesUseCase;
 
     @GetMapping
     public List<EmployeeDto> getEmployees() {
         List<Employee> employees = getEmployeesUseCase.getAll();
-        List<EmployeeDto> employeesDto = new ArrayList<>();
-        employees.forEach(employee -> {
-            EmployeeDto employeeDto = createEmployeeDto(employee);
-            employeesDto.add(employeeDto);});
-        return employeesDto;
+        return employees.stream()
+                .map(this::createEmployeeDto)
+                .toList();
     }
 
     @PostMapping
-    public Employee create(@RequestBody Employee employee) {
-        return createEmployeeUseCase.create(employee);
+    public EmployeeDto create(@RequestBody Employee employee) {
+        createEmployeeUseCase.create(employee);
+        return createEmployeeDto(employee);
     }
 
     @GetMapping("/without-mentors")
-    public List<Employee> getEmployeesWithOutMentors() {
-        return getEmployeesUseCase.getAllWithoutMentors();
+    public List<EmployeeDto> getEmployeesWithOutMentors() {
+        List<Employee> employees = getEmployeesUseCase.getAllWithoutMentors();
+        return employees.stream()
+                .map(this::createEmployeeDto)
+                .toList();
     }
 
     @GetMapping(value = "/{id}")
@@ -44,14 +45,12 @@ public class EmployeeController {
         return createEmployeeDto(employees);
     }
 
-    @GetMapping(value = "/department/{id}")
-    public List<EmployeeDto> getEmployeesFromDepartment(@PathVariable Long id) {
-        List<Employee> employees = getEmployeesUseCase.getEmployeesFromDepartment(id);
-        List<EmployeeDto> employeesDto = new ArrayList<>();
-        employees.forEach(employee -> {
-            EmployeeDto employeeDto = createEmployeeDto(employee);
-            employeesDto.add(employeeDto);});
-        return employeesDto;
+    @GetMapping(value = "/from")
+    public List<EmployeeDto> getByDepartmentId(@RequestParam Long id) {
+        List<Employee> employees = getEmployeesUseCase.getByDepartmentId(id);
+        return employees.stream()
+                .map(this::createEmployeeDto)
+                .toList();
     }
 
     private EmployeeDto createEmployeeDto(Employee employee) {

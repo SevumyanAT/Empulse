@@ -13,5 +13,5 @@ public interface EmployeeRepository {
 
     Employee getById(Long id);
 
-    List<Employee> findEmployeesFromDepartment(Long id);
+    List<Employee> findByDepartmentId(Long id);
 }
