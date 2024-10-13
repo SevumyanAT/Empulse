@@ -2,6 +2,7 @@ package ru.sevumyan.arsen.adapter.persistence;
 
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Component;
+import ru.sevumyan.arsen.adapter.rest.dto.EmployeeDto;
 import ru.sevumyan.arsen.app.api.EmployeeRepository;
 import ru.sevumyan.arsen.domain.Employee;
 
@@ -34,7 +35,7 @@ public class EmployeeRepositoryAdapter implements EmployeeRepository {
     }
 
     @Override
-    public List<Employee> findByDepartmentId(Long id) {
-        return employeeJpaRepository.findByDepartmentId(id);
+    public List<Employee> findByDepartmentId(Long departmentId) {
+        return employeeJpaRepository.findByDepartmentId(departmentId);
     }
 }

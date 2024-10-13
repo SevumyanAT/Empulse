@@ -16,8 +16,7 @@ public class DepartmentController {
 
     @GetMapping
     public List<DepartmentDto> getDepartments() {
-        List<Department> departments = getDepartmentsUseCase.getAll();
-        return departments.stream()
+        return getDepartmentsUseCase.getAll().stream()
                 .map(this::createDepartmentDto)
                 .toList();
     }

@@ -9,6 +9,6 @@ import java.util.List;
 public interface EmployeeJpaRepository extends JpaRepository<Employee, Long> {
     List<Employee> findAllByMentorIsNull();
 
-    List<Employee> findByDepartmentId(Long id);
+    List<Employee> findByDepartmentId(Long departmentId);
 }
 

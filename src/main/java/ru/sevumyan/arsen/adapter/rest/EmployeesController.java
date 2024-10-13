@@ -18,23 +18,21 @@ public class EmployeesController {
     private final GetEmployeesUseCase getEmployeesUseCase;
 
     @GetMapping
-    public List<EmployeeDto> getEmployees() {
-        List<Employee> employees = getEmployeesUseCase.getAll();
-        return employees.stream()
+    public List<EmployeeDto> getEmployees(@RequestParam(required = false) Long departmentId) {
+        return getEmployeesUseCase.getAllByFilters(departmentId).stream()
                 .map(this::createEmployeeDto)
                 .toList();
     }
 
     @PostMapping
     public EmployeeDto create(@RequestBody Employee employee) {
-        createEmployeeUseCase.create(employee);
-        return createEmployeeDto(employee);
+        Employee newEmployee = createEmployeeUseCase.create(employee);
+        return createEmployeeDto(newEmployee);
     }
 
     @GetMapping("/without-mentors")
-    public List<EmployeeDto> getEmployeesWithOutMentors() {
-        List<Employee> employees = getEmployeesUseCase.getAllWithoutMentors();
-        return employees.stream()
+    public List<EmployeeDto> getEmployeesWithoutMentors() {
+        return getEmployeesUseCase.getAllWithoutMentors().stream()
                 .map(this::createEmployeeDto)
                 .toList();
     }
@@ -43,14 +41,6 @@ public class EmployeesController {
     public EmployeeDto getEmployeeById(@PathVariable Long id) {
         Employee employees = getEmployeesUseCase.getById(id);
         return createEmployeeDto(employees);
-    }
-
-    @GetMapping(value = "/from")
-    public List<EmployeeDto> getByDepartmentId(@RequestParam Long id) {
-        List<Employee> employees = getEmployeesUseCase.getByDepartmentId(id);
-        return employees.stream()
-                .map(this::createEmployeeDto)
-                .toList();
     }
 
     private EmployeeDto createEmployeeDto(Employee employee) {

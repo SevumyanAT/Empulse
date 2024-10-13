@@ -18,11 +18,6 @@ public class GetEmployeesUseCase implements GetEmployeesInbound {
     private final EmployeeRepository employeeRepository;
 
     @Override
-    public List<Employee> getAll() {
-        return employeeRepository.findAll();
-    }
-
-    @Override
     public List<Employee> getAllWithoutMentors() {
         return employeeRepository.findEmployeesWithoutMentors();
     }
@@ -30,10 +25,14 @@ public class GetEmployeesUseCase implements GetEmployeesInbound {
     @Override
     public Employee getById(Long id) {
         return employeeRepository.getById(id);
-}
+    }
 
     @Override
-    public List<Employee> getByDepartmentId(Long id) {
-        return employeeRepository.findByDepartmentId(id);
+    public List<Employee> getAllByFilters(Long departmentId) {
+        if (departmentId == null) {
+            return employeeRepository.findAll();
+        } else {
+            return employeeRepository.findByDepartmentId(departmentId);
+        }
     }
 }
