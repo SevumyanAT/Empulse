@@ -1,2 +1,4 @@
-# DictionaryLoader
-My first repository on GitHub. Simple dictionary loader.
+# Empulse
+My first repository on GitHub. 
+Два года изучаю программирование по открытым источникам. 
+Изучаемые темы воспроизвожу в своем проекте
