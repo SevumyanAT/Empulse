@@ -28,6 +28,7 @@ public class GetEmployeesUseCase implements GetEmployeesInbound {
     }
 
     @Override
+    @Transactional(readOnly = true)
     public List<Employee> getAllByFilters(Long departmentId) {
         if (departmentId == null) {
             return employeeRepository.findAll();

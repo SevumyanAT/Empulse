@@ -2,7 +2,6 @@ package ru.sevumyan.arsen.adapter.persistence;
 
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Component;
-import ru.sevumyan.arsen.adapter.rest.dto.EmployeeDto;
 import ru.sevumyan.arsen.app.api.EmployeeRepository;
 import ru.sevumyan.arsen.domain.Employee;
 

@@ -3,15 +3,12 @@ package ru.sevumyan.arsen.adapter.rest.dto;
 import lombok.Getter;
 import lombok.RequiredArgsConstructor;
 import lombok.Setter;
-import ru.sevumyan.arsen.domain.Department;
-import ru.sevumyan.arsen.domain.Employee;
-import ru.sevumyan.arsen.domain.Position;
 
 import java.time.LocalDate;
 
-@RequiredArgsConstructor
 @Getter
 @Setter
+@RequiredArgsConstructor
 public class EmployeeDto {
     private Long id;
 
@@ -27,9 +24,9 @@ public class EmployeeDto {
 
     private String bankAccount;
 
-    private Employee mentor;
+    private EmployeeDto mentor;
 
-    private Position position;
+    private PositionDto position;
 
     private DepartmentDto department;
 }

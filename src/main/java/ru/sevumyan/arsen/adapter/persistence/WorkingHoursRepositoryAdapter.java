@@ -3,7 +3,7 @@ package ru.sevumyan.arsen.adapter.persistence;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Component;
 import ru.sevumyan.arsen.app.api.WorkingHoursRepository;
-import ru.sevumyan.arsen.domain.WorkingHours;
+import ru.sevumyan.arsen.domain.WorkingHour;
 
 import java.util.List;
 
@@ -13,7 +13,7 @@ public class WorkingHoursRepositoryAdapter implements WorkingHoursRepository {
     private final WorkingHoursJpaRepository workingHoursJpaRepository;
 
     @Override
-    public List<WorkingHours> findAll() {
+    public List<WorkingHour> findAll() {
         return workingHoursJpaRepository.findAll();
     }
 }
