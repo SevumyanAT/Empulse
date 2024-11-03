@@ -5,7 +5,7 @@ import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 import ru.sevumyan.arsen.app.api.GetWorkingHoursInbound;
 import ru.sevumyan.arsen.app.api.WorkingHoursRepository;
-import ru.sevumyan.arsen.domain.WorkingHours;
+import ru.sevumyan.arsen.domain.WorkingHour;
 
 import java.util.List;
 
@@ -16,7 +16,7 @@ public class GetWorkingHoursUseCase implements GetWorkingHoursInbound {
 
     @Override
     @Transactional(readOnly = true)
-    public List<WorkingHours> getAll() {
+    public List<WorkingHour> getAll() {
         return workingHoursRepository.findAll();
     }
 }
