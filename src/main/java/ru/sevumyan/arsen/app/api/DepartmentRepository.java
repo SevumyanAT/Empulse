@@ -6,4 +6,6 @@ import java.util.List;
 
 public interface DepartmentRepository {
     List<Department> findAll();
+
+    Department save(Department department);
 }

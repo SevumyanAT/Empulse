@@ -36,7 +36,7 @@ public class Employee {
     @JoinColumn(name = "mentor_id")
     private Employee mentor;
     @ManyToOne
-    @JoinColumn(name = "positions_id")
+    @JoinColumn(name = "position_id")
     private Position position;
     @ManyToOne
     @JoinColumn(name = "department_id")

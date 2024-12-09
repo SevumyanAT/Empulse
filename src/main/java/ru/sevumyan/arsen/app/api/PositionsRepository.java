@@ -6,4 +6,6 @@ import java.util.List;
 
 public interface PositionsRepository {
     List<Position> findAll();
+
+    Position save(Position position);
 }

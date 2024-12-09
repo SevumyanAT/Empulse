@@ -4,6 +4,6 @@ import ru.sevumyan.arsen.domain.Position;
 
 import java.util.List;
 
-public interface GetPositionsInbound {
+public interface GetPositionInbound {
     List<Position> getAll();
 }
