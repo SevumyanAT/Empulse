@@ -1,12 +1,11 @@
 package ru.sevumyan.arsen.adapter.rest;
 
 import lombok.RequiredArgsConstructor;
-import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RestController;
+import org.springframework.web.bind.annotation.*;
 import ru.sevumyan.arsen.adapter.rest.dto.PositionDto;
 import ru.sevumyan.arsen.adapter.rest.dto.PositionMapper;
-import ru.sevumyan.arsen.app.impl.GetPositionsUseCase;
+import ru.sevumyan.arsen.app.impl.CreatePositionUseCase;
+import ru.sevumyan.arsen.app.impl.GetPositionUseCase;
 import ru.sevumyan.arsen.domain.Position;
 
 import java.util.List;
@@ -15,12 +14,19 @@ import java.util.List;
 @RequiredArgsConstructor
 @RequestMapping("/positions")
 public class PositionsController {
-    private final GetPositionsUseCase getPositionsUseCase;
+    private final GetPositionUseCase getPositionUseCase;
+    private final CreatePositionUseCase createPositionsUseCase;
     private final PositionMapper positionMapper;
 
     @GetMapping
     public List<PositionDto> getPositions() {
-        List<Position> positions = getPositionsUseCase.getAll();
+        List<Position> positions = getPositionUseCase.getAll();
         return positionMapper.toPositionDtoList(positions);
+    }
+
+    @PostMapping
+    public PositionDto create(@RequestBody Position position){
+        Position newPosition = createPositionsUseCase.create(position);
+        return positionMapper.toPositionDto(newPosition);
     }
 }
