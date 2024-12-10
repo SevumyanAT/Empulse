@@ -16,16 +16,6 @@
     <build>
         <plugins>
             <plugin>
-                <groupId>org.flywaydb</groupId>
-                <artifactId>flyway-maven-plugin</artifactId>
-                <version>11.0.1</version>
-                <configuration>
-                    <url>jdbc:postgresql://localhost:5432/postgres</url>
-                    <user>postgres</user>
-                    <password>postgres</password>
-                </configuration>
-            </plugin>
-            <plugin>
                 <groupId>org.apache.maven.plugins</groupId>
                 <artifactId>maven-compiler-plugin</artifactId>
                 <configuration>
@@ -63,6 +53,11 @@
         <maven.compiler.target>20</maven.compiler.target>
         <project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
         <lombok.version>1.18.30</lombok.version>
+        <flyway.user>postgres</flyway.user>
+        <flyway.password>postgres</flyway.password>
+        <flyway.url>jdbc:postgresql://localhost:5432/postgres</flyway.url>
+        <flyway.cleanDisabled>false</flyway.cleanDisabled>
+        <flyway.validateMigrationNaming>true</flyway.validateMigrationNaming>
     </properties>
 
     <dependencies>

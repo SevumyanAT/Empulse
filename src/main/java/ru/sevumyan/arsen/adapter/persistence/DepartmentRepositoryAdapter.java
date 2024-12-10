@@ -18,5 +18,7 @@ public class DepartmentRepositoryAdapter implements DepartmentRepository {
     }
 
     @Override
-    public Department save(Department department){return departmentJpaRepository.save(department);}
+    public Department save(Department department) {
+        return departmentJpaRepository.save(department);
+    }
 }

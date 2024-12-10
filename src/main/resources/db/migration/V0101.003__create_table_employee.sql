@@ -9,4 +9,4 @@ bank_account varchar unique not null,
 mentor_id bigint references employee(id),
 position_id bigint references position(id),
 department_id bigint references department(id)
-)
+);

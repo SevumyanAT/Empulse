@@ -10,4 +10,6 @@ public interface PositionMapper {
     PositionDto toPositionDto(Position position);
 
     List<PositionDto> toPositionDtoList(List<Position> positions);
+
+    Position toPosition(PositionDto positionDto);
 }

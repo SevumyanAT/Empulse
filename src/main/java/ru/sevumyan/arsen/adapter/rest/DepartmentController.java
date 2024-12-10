@@ -25,8 +25,9 @@ public class DepartmentController {
     }
 
     @PostMapping
-    public DepartmentDto create(@RequestBody Department department){
-        Department newDepartment = createDepartmentUseCase.create(department);
+    public DepartmentDto create(@RequestBody DepartmentDto departmentDto) {
+        Department newDepartment = departmentMapper.toDepartment(departmentDto);
+        newDepartment = createDepartmentUseCase.create(newDepartment);
         return departmentMapper.toDepartmentDto(newDepartment);
     }
 }

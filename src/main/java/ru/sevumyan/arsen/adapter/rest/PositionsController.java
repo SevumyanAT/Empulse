@@ -25,8 +25,9 @@ public class PositionsController {
     }
 
     @PostMapping
-    public PositionDto create(@RequestBody Position position){
-        Position newPosition = createPositionsUseCase.create(position);
+    public PositionDto create(@RequestBody PositionDto positionDto) {
+        Position newPosition = positionMapper.toPosition(positionDto);
+        newPosition = createPositionsUseCase.create(newPosition);
         return positionMapper.toPositionDto(newPosition);
     }
 }
