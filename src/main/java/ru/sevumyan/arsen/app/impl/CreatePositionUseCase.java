@@ -8,12 +8,12 @@ import ru.sevumyan.arsen.app.api.PositionsRepository;
 import ru.sevumyan.arsen.domain.Position;
 
 @Service
-@Transactional
 @RequiredArgsConstructor
 public class CreatePositionUseCase implements CreatePositionInbound {
     private final PositionsRepository positionsRepository;
 
     @Override
+    @Transactional
     public Position create(Position position) {
         return positionsRepository.save(position);
     }
