@@ -9,11 +9,16 @@ import java.util.List;
 
 @Component
 @RequiredArgsConstructor
-public class PositionsRepositoryAdapter implements PositionsRepository {
-    private final PositionsJpaRepository positionsJpaRepository;
+public class PositionRepositoryAdapter implements PositionsRepository {
+    private final PositionJpaRepository positionJpaRepository;
 
     @Override
     public List<Position> findAll() {
-        return positionsJpaRepository.findAll();
+        return positionJpaRepository.findAll();
+    }
+
+    @Override
+    public Position save(Position position) {
+        return positionJpaRepository.save(position);
     }
 }

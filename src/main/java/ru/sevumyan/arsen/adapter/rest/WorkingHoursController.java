@@ -19,7 +19,7 @@ public class WorkingHoursController {
     private final WorkingHourMapper workingHourMapper;
 
     @GetMapping
-    public List<WorkingHourDto > getWorkingHours() {
+    public List<WorkingHourDto> getWorkingHours() {
         List<WorkingHour> workingHours = getWorkingHoursUseCase.getAll();
         return workingHourMapper.toWorkingHourDtoList(workingHours);
     }

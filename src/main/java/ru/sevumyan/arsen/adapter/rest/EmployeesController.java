@@ -24,8 +24,9 @@ public class EmployeesController {
     }
 
     @PostMapping
-    public EmployeeDto create(@RequestBody Employee employee) {
-        Employee newEmployee = createEmployeeUseCase.create(employee);
+    public EmployeeDto create(@RequestBody EmployeeDto employeedto) {
+        Employee newEmployee = employeeMapper.toEmployee(employeedto);
+        newEmployee = createEmployeeUseCase.create(newEmployee);
         return employeeMapper.toEmployeeDto(newEmployee);
     }
 

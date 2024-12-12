@@ -10,4 +10,6 @@ public interface DepartmentMapper {
     DepartmentDto toDepartmentDto(Department department);
 
     List<DepartmentDto> toDepartmentDtoList(List<Department> departments);
+
+    Department toDepartment(DepartmentDto departmentDto);
 }

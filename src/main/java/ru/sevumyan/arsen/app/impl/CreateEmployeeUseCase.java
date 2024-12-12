@@ -10,7 +10,7 @@ import ru.sevumyan.arsen.domain.Employee;
 @Service
 @RequiredArgsConstructor
 public class CreateEmployeeUseCase implements CreateEmployeeInbound {
-   private final EmployeeRepository employeeRepository;
+    private final EmployeeRepository employeeRepository;
 
     @Override
     @Transactional

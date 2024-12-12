@@ -16,4 +16,9 @@ public class DepartmentRepositoryAdapter implements DepartmentRepository {
     public List<Department> findAll() {
         return departmentJpaRepository.findAll();
     }
+
+    @Override
+    public Department save(Department department) {
+        return departmentJpaRepository.save(department);
+    }
 }
